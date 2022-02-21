@@ -1,0 +1,18 @@
+.sessionStyles{
+    .fullHeight{
+        min-height: 100vh;
+
+        .blueBox{
+            background: #A3DBED;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+
+    .error .form-text{
+        color: red;
+        font-weight: bold;
+        font-size: 12px;
+    }
+}
+

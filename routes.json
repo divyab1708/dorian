@@ -1,0 +1,3 @@
+{
+    "api/login\\?email=:email & password=:pass": "/login?email=:email & password=:pass"
+}
