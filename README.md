@@ -20,7 +20,7 @@ app.use(cors());
 1) White Text is low contrast to the background, making it a little difficult to read. Change the text color to black
 2) Buttons are low contrast to background. Changed it to a darker color to improve visibility.
 3) No cancel buttons in Register and Forgot Password pages, making it difficult for the user to go back to the login page if needed. I added those buttons.
-4) Success messages on the screen.
+4) Success messages on the screen should be designed.
 5) Error messages can be made user friendly
 6) Could add logout option (have not added it now)
 
