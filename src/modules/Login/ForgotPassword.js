@@ -1,15 +1,17 @@
 
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Modal } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import util from "../../utilities/serviceCalls"
 
 import './login.scss';
 
-function Login() {
+function ForgotPassword() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
+
   const emailregex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   const navigate = useNavigate();
   function changeState({target}, setterFunction){
@@ -21,26 +23,24 @@ function Login() {
         setError("Please check the email you provided")
         return
     }
-    if(password==""){
-        setError("Please enter password")
-        return
-    }
+  
     setError('')
-    util.post("/api/login",{
-      email,
-      password
+    util.post("/api/forgot",{
+      email
     }).then(response=>{
       if(response.data.success){
-        localStorage.setItem("username", response.data.name)
-        navigate('/home');
+       setShowModal(true)
+        
       }
       else{
-        setError("Either email or password are invalid")
+        setError("User with this email is not registered")
       }
     })
     
     
-    
+  }
+  function closeModal(){
+    setShowModal(false)
   }
 
   return (
@@ -57,20 +57,19 @@ function Login() {
                             
                         </Form.Group>
 
-                        <Form.Group className="" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password"  onChange={(event)=>{changeState(event,setPassword)}} />
-                        </Form.Group>
-                        <Form.Group className="error mb-2" controlId="formBasicPassword">
+                       
+                        <Form.Group className="error  mb-2" controlId="formBasicPassword">
                             <Form.Text  style={{opacity: error=="" ? 0 : 1}}> {error || "-"}</Form.Text>
                         </Form.Group>
-                       <Form.Group className="text-center">
+
+                        <Form.Group className="text-center">
                           <Button variant="primary" type="submit">
-                              Login
+                              Send
+                          </Button>
+                          <Button variant="secondary" type="button" onClick={()=>{navigate("/login")}}>
+                              Cancel
                           </Button>
                         </Form.Group>
-                       <div className='fs-10 mb-3'><Link to="/forgotpassword" className='float-start'> Forgot Password </Link>  <Link to="/signup" className='float-end'>Sign up</Link></div>
-
                     </Form>
 
                </div>
@@ -79,8 +78,19 @@ function Login() {
             <Col ></Col>
         </Row>
       </Container>
+
+      <Modal show={showModal} >
+          
+          <Modal.Body>An email has been sent to you to reset the password</Modal.Body>
+          <Modal.Footer>
+            
+            <Button variant="primary" onClick={()=>{navigate("/login")}}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
     </div>
   );
 }
 
-export default Login;
+export default ForgotPassword;

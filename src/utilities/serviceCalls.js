@@ -1,4 +1,5 @@
 import axios from 'axios';
+// axios.defaults.baseURL = http://wwww.example.com
 const api = axios.create({ baseURL: 'http://localhost:3001' });
 var util={
     post: (url, data)=>{

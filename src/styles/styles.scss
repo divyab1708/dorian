@@ -16,3 +16,22 @@ body {
     font-size: 10px;
 }
   
+.btn{
+    margin-right: 2px;
+    &.btn-primary{
+        background: #1E1C43;
+        border-color: #1E1C43;
+        &:hover{
+            background-color: #322f68;
+        }
+    }
+
+    &.btn-secondary{
+        color: #322f68;
+        background: white;
+        border-color: white;
+        &:hover{
+            background-color: #f3f3f3;
+        }
+    }
+}
